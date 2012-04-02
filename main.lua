@@ -1,9 +1,11 @@
-local widgets = require ("lib/recursivewidgets/widgets")
+local widgets = require "lib/recursivewidgets/widgets"
+local panels = require "lib/recursivewidgets/panel"
+local frame = require "lib/recursivewidgets/frame"
 local gui
 function love.load()
 	gui = widgets.newgui()
 	widgets:addto(gui)
-
+	frame:addto(gui, {halign="center", valign = "center", widgets={widgets:new()}})
 end
 
 function love.update(dt)
