@@ -5,7 +5,7 @@ local widget = require "lib/recursivewidgets/widgets"
 local colour = require "lib/recursivewidgets/colour"
 
 local textbox = setmetatable({}, widget)
-
+textbox.__index = textbox
 textbox.template = {
 	canvas = nil,
 	text = nil,
@@ -24,7 +24,6 @@ textbox.template = {
 		local font = love.graphics.getFont()
 		local _, wraplines = font:getWrap(self.text, self.width)
 		local fontheight = font:getHeight()
-		print("wraps to "..wraplines.." lines, font is "..fontheight.." pixels high")
 		self.maxscroll = wraplines * fontheight - self.height
 		
 	end,

@@ -8,6 +8,7 @@ local colour = require "lib/recursivewidgets/colour"
 local button = require "lib/recursivewidgets/wbutton"
 local window = require "lib/recursivewidgets/window"
 local textbox = require "lib/recursivewidgets/wtextbox"
+local textedit = require "lib/recursivewidgets/wtextedit"
 
 local gui
 local font
@@ -30,6 +31,7 @@ function love.load()
 	local tb = textbox:addto(gui, {text=newtext, halign="center", width=128, height=128})
 	button:addto(gui, {mousereleased=function() tb:scroll(5) end, wlabel=label:new{text="Scroll text down"}, posx=64})
 	button:addto(gui, {mousereleased=function() tb:scroll(-5) end, wlabel=label:new{text="Scroll text up"}, posx=128})
+	textedit:addto(gui, {text=newtext, valign="center", width=128, height=128, cursorpos=5})
 end
 
 function love.update(dt)
