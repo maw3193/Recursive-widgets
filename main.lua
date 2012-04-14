@@ -42,12 +42,12 @@ function love.draw()
 	gui:draw()
 end
 
-function love.keypressed(key)
-	gui:keypressed(key)
+function love.keypressed(key, unicode)
+	gui:keypressed(key, unicode)
 end
 
-function love.keyreleased(key)
-	gui:keyreleased(key)
+function love.keyreleased(key, unicode)
+	gui:keyreleased(key, unicode)
 end
 
 function love.mousepressed(x, y, button)

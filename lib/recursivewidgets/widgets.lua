@@ -22,14 +22,14 @@ widgets.guitemplate = {
 			v:draw()
 		end
 	end,
-	keypressed = function(self, key)
+	keypressed = function(self, key, unicode)
 		if self.focussed then
-			self.focussed:keypressed(key)
+			self.focussed:keypressed(key, unicode)
 		end
 	end,
-	keyreleased = function(self, key)
+	keyreleased = function(self, key, unicode)
 		if self.focussed then
-			self.focussed:keyreleased(key)
+			self.focussed:keyreleased(key, unicode)
 		end
 	end,
 	mousepressed = function(self, x, y, button)
@@ -47,6 +47,7 @@ widgets.guitemplate = {
 		if self.focussed then
 			if self.focussed:mousereleased(x, y, button) then
 				return true
+				
 			end
 		end
 		return false
@@ -106,10 +107,10 @@ widgets.template = {
 		end
 
 	end,
-	keypressed = function(self, key)
+	keypressed = function(self, key, unicode)
 	
 	end,
-	keyreleased = function(self, key)
+	keyreleased = function(self, key, unicode)
 	
 	end,
 	mousepressed = function(self, x, y, button)

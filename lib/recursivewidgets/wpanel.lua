@@ -23,14 +23,14 @@ panel.template = {
 			v:update(dt)
 		end
 	end,
-	keypressed = function(self, key)
+	keypressed = function(self, key, unicode)
 		if self.focussed then
-			self.focussed:keypressed(key)
+			self.focussed:keypressed(key, unicode)
 		end
 	end,
-	keyreleased = function(self, key)
+	keyreleased = function(self, key, unicode)
 		if self.focussed then
-			self.focussed:keyreleased(key)
+			self.focussed:keyreleased(key, unicode)
 		end
 	end,
 	mousepressed = function(self, x, y, button)
