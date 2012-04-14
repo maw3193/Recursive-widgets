@@ -1,5 +1,7 @@
+local colour = require "lib/recursivewidgets/colour"
+local icon = require "lib/recursivewidgets/icon"
+local weakref = require "lib/recursivewidgets/weakref"
 local widgets = {}
-local colour = require("lib/recursivewidgets/colour")
 
 widgets.guitemplate = {
 	width = 0,
@@ -43,10 +45,8 @@ widgets.guitemplate = {
 	end,
 	mousereleased = function(self, x, y, button)
 		if self.focussed then
-			if self.focussed:testpoint(x, y) then
-				if self.focussed:mousereleased(x, y, button) then
-					return true
-				end
+			if self.focussed:mousereleased(x, y, button) then
+				return true
 			end
 		end
 		return false
@@ -85,9 +85,9 @@ widgets.template = {
 	valign = "top",
 	width = 64,
 	height = 64,
-	parent = nil,
-	bordercol = colour.red,
-	bgcol = colour:transparent("blue"),
+	parent = nil, --REPLACE WITH A WEAK REFERENCE OBJECT THING
+	bordercol = nil,
+	bgcol = nil,
 	update = function(self, dt)
 	
 	end,
@@ -96,12 +96,14 @@ widgets.template = {
 		local y = self:getScreenY()
 		local w = self.width
 		local h = self.height
-
-		love.graphics.setColor(self.bgcol)
-		love.graphics.rectangle("fill", x, y, w, h)
-
-		love.graphics.setColor(self.bordercol)
-		love.graphics.rectangle("line", x, y, w, h)
+		if self.bgcol then
+			love.graphics.setColor(self.bgcol)
+			love.graphics.rectangle("fill", x, y, w, h)
+		end
+		if self.bordercol then
+			love.graphics.setColor(self.bordercol)
+			love.graphics.rectangle("line", x, y, w, h)
+		end
 
 	end,
 	keypressed = function(self, key)
@@ -116,33 +118,36 @@ widgets.template = {
 	mousereleased = function(self, x, y, button)
 	
 	end,
+	getParent = function(self)
+		return self.parent.value
+	end,
 	getScreenX = function(self, x)
 		x = x or 0
 		if self.halign == "right" then
-			return self.parent:getScreenX() + self.parent.width - self.width + self.posx + x
+			return self:getParent():getScreenX() + self:getParent().width - self.width + self.posx + x
 		elseif self.halign == "center" then
-			return self.parent:getScreenX() + self.parent.width / 2 - self.width / 2 + self.posx + x
+			return self:getParent():getScreenX() + self:getParent().width / 2 - self.width / 2 + self.posx + x
 		else
-			return self.parent:getScreenX() + self.posx + x
+			return self:getParent():getScreenX() + self.posx + x
 		end
 	end,
 	getScreenY = function(self, y)
 		y = y or 0
 		if self.valign == "bottom" then
-			return self.parent:getScreenY() + self.parent.height - self.height + self.posy + y
+			return self:getParent():getScreenY() + self:getParent().height - self.height + self.posy + y
 		elseif self.valign == "center" then
-			return self.parent:getScreenY() + self.parent.height / 2 - self.height / 2 + self.posy + y
+			return self:getParent():getScreenY() + self:getParent().height / 2 - self.height / 2 + self.posy + y
 		else
-			return self.parent:getScreenY() + self.posy + y
+			return self:getParent():getScreenY() + self.posy + y
 		end
 	end,
 	getLocalX = function(self, x)
 		x = x or 0
-		return x - self.posx + self.parent:getLocalX()
+		return x - self.posx + self:getParent():getLocalX()
 	end,
 	getLocalY = function(self, y)
 		y = y or 0
-		return y - self.posy + self.parent:getLocalY()
+		return y - self.posy + self:getParent():getLocalY()
 	end,
 	testpoint = function(self, x, y)
 		if x >= self:getScreenX()
@@ -155,8 +160,12 @@ widgets.template = {
 			return false
 		end
 	end,
+	resize = function(self, dx, dy)
+	
+	end,
 }
 widgets.template.__index = widgets.template
+
 
 widgets.new = function(self, data)
 	local temp = setmetatable({}, self.template)
@@ -173,10 +182,11 @@ widgets.addto = function(self, parent, data)
 		data = {}
 	end
 	if parent then
-		data["parent"] = parent
+		data.parent = weakref:new(parent)
 	end
 	local temp = self:new(data)
 	table.insert(parent.widgets, temp)
+	return temp
 end
 widgets.__index = widgets
 return widgets

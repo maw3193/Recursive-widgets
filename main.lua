@@ -1,11 +1,35 @@
 local widgets = require "lib/recursivewidgets/widgets"
-local panels = require "lib/recursivewidgets/panel"
-local frame = require "lib/recursivewidgets/frame"
+local panel = require "lib/recursivewidgets/wpanel"
+local frame = require "lib/recursivewidgets/wframe"
+local icon = require "lib/recursivewidgets/icon"
+local wicon = require "lib/recursivewidgets/wicon"
+local label = require "lib/recursivewidgets/wlabel"
+local colour = require "lib/recursivewidgets/colour"
+local button = require "lib/recursivewidgets/wbutton"
+local window = require "lib/recursivewidgets/window"
+local textbox = require "lib/recursivewidgets/wtextbox"
+
 local gui
+local font
+local newtext = "Argh bees everywhere! Run for your lives! Don't open that crate! It's full of bees! Worse than bees, spike-hornets! With bayonets and lasers! But wait, there's more! With the bee 'honey', we can do anything! We can reverse death itself!"
+
+local function addwindowfunc()
+	window:addto(gui, {halign="center", valign="center", minwidth = 256, minheight = 256, width=256, height=256, title="I'm a window!", icon={iconpath="art/upicon.png"},
+	                   widgets = {frame:new{widgets={textbox:new{text=newtext}}}}
+	                  })
+	return true
+end
+
 function love.load()
+	font = love.graphics.newFont()
+	love.graphics.setFont(font)
 	gui = widgets.newgui()
-	widgets:addto(gui)
-	frame:addto(gui, {halign="center", valign = "center", widgets={widgets:new()}})
+	gui.icons = {}
+	icon:setstore(gui.icons)
+	button:addto(gui, {mousereleased = addwindowfunc, wlabel=label:new{text="Make a new window"}})
+	local tb = textbox:addto(gui, {text=newtext, halign="center", width=128, height=128})
+	button:addto(gui, {mousereleased=function() tb:scroll(5) end, wlabel=label:new{text="Scroll text down"}, posx=64})
+	button:addto(gui, {mousereleased=function() tb:scroll(-5) end, wlabel=label:new{text="Scroll text up"}, posx=128})
 end
 
 function love.update(dt)

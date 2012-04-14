@@ -4,6 +4,8 @@ local colour = {
 	blue = {0,0,255,255},
 	black = {0,0,0,255},
 	white = {255,255,255,255},
+	grey = {127,127,127,255},
+	invisible = {0,0,0,0},
 	deftransparency = 127,
 	transparent = function(self, name, level)
 		local alpha
