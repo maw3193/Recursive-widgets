@@ -7,7 +7,7 @@ local wtextbox = require "lib/recursivewidgets/wtextbox"
 local textedit = setmetatable({}, wtextbox)
 
 textedit.template = {
-	cursorpos = 0,
+	cursorpos = 1,
 	cursor = "|",
 	redrawcanvas = function(self)
 		self.canvas:renderTo(function()
@@ -29,10 +29,51 @@ textedit.template = {
 			return true
 		end
 	end,
-	addchar = function(self, char)
-		local beforestring = self.text:sub(1, self.cursorpos)
+	addchar = function(self, unichar)
+		local beforestring = self.text:sub(1, self.cursorpos + 0)
 		local afterstring = self.text:sub(self.cursorpos + 1)
-		self.text = beforestring..char..afterstring
+		self.text = beforestring..string.char(unichar)..afterstring
+		self:movecursor(1)
+	end,
+	remchar = function(self, offset)
+		local beforepos = self.cursorpos + offset - 1
+		local afterpos = beforepos + 2
+		local beforestring = self.text:sub(0, beforepos)
+		local afterstring = self.text:sub(afterpos)
+		self.text = beforestring..afterstring
+		self:movecursor(offset - 1)
+	end,
+	movecursor = function(self, amount)
+		local cursordest = self.cursorpos + amount
+		if cursordest < 0 then
+			self.cursorpos = 0
+		elseif cursordest > self.text:len() + 1 then
+			self.cursorpos = self.text:len()
+		else
+			self.cursorpos = cursordest
+		end
+		self:recalculate()
+		self:redrawcanvas()
+	end,
+	mousepressed = function(self, x, y, button)
+		if button == "l" then
+			return true
+		end
+	end,
+	keypressed = function(self, key, unicode)
+		if self:isvalidchar(unicode) then
+			self:addchar(unicode)
+		elseif key == "return" and (love.keyboard.isDown("lshift") or love.keyboard.isDown("rshift")) then
+			self:addchar(string.byte"\n")
+		elseif key == "backspace" then
+			self:remchar(-0)
+		elseif key == "delete" then
+			self:remchar(1)
+		elseif key == "left" then
+			self:movecursor(-1)
+		elseif key == "right" then
+			self:movecursor(1)
+		end
 	end,
 }
 setmetatable(textedit.template, wtextbox.template)

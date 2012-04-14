@@ -31,7 +31,7 @@ function love.load()
 	local tb = textbox:addto(gui, {text=newtext, halign="center", width=128, height=128})
 	button:addto(gui, {mousereleased=function() tb:scroll(5) end, wlabel=label:new{text="Scroll text down"}, posx=64})
 	button:addto(gui, {mousereleased=function() tb:scroll(-5) end, wlabel=label:new{text="Scroll text up"}, posx=128})
-	textedit:addto(gui, {text=newtext, valign="center", width=128, height=128, cursorpos=5})
+	textedit:addto(gui, {text="ABCDE", valign="center", width=128, height=128, cursorpos=3})
 end
 
 function love.update(dt)
