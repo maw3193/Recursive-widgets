@@ -9,6 +9,7 @@ local button = require "lib/recursivewidgets/wbutton"
 local window = require "lib/recursivewidgets/window"
 local textbox = require "lib/recursivewidgets/wtextbox"
 local textedit = require "lib/recursivewidgets/wtextedit"
+local textpanel = require "lib/recursivewidgets/wtextpanel"
 
 local gui
 local font
@@ -32,6 +33,7 @@ function love.load()
 	button:addto(gui, {mousereleased=function() tb:scroll(5) end, wlabel=label:new{text="Scroll text down"}, posx=64})
 	button:addto(gui, {mousereleased=function() tb:scroll(-5) end, wlabel=label:new{text="Scroll text up"}, posx=128})
 	textedit:addto(gui, {text="ABCDE", valign="center", width=128, height=128, cursorpos=3})
+	textpanel:addto(gui, {text=newtext})
 end
 
 function love.update(dt)

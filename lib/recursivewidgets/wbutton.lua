@@ -2,6 +2,7 @@
 Button: Widget that can have a label and icon widget, and responds to clicks
 --]]
 local widgets = require "lib/recursivewidgets/widgets"
+local wicon = require "lib/recursivewidgets/wicon"
 local icon = require "lib/recursivewidgets/icon"
 local colour = require "lib/recursivewidgets/colour"
 local weakref = require "lib/recursivewidgets/weakref"
@@ -56,7 +57,9 @@ button.resizeupdate = function(self, dt)
 end
 
 button.template = {
-
+	iconr = 0,
+	iconpath = nil,
+	iconscale = 1,
 	bordercol = colour.white,
 	bgcol = colour:transparent("white"),
 	draw = function(self)
@@ -90,6 +93,13 @@ setmetatable(button.template, widgets.template)
 
 button.new = function(self, data)
 	local temp = widgets.new(self, data)
+	if not temp.wicon then
+		temp.wicon = wicon:new{
+			iconr = data.iconr or self.template.iconr,
+			iconpath = data.iconpath,
+			iconscale = data.iconscale or self.template.iconscale,
+		}
+	end
 	if temp.wicon then
 		temp.wicon.parent = weakref:new(temp)
 	end

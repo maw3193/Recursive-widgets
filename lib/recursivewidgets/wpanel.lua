@@ -5,6 +5,7 @@ local colour = require "lib/recursivewidgets/colour"
 local widgets = require "lib/recursivewidgets/widgets"
 local weakref = require "lib/recursivewidgets/weakref"
 local panel = setmetatable({}, widgets)
+panel.__index = panel
 panel.template = {
 	width = 128,
 	height = 128,
