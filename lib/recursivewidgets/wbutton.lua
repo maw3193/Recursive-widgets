@@ -93,11 +93,11 @@ setmetatable(button.template, widgets.template)
 
 button.new = function(self, data)
 	local temp = widgets.new(self, data)
-	if not temp.wicon then
+	if temp.iconpath and not temp.wicon then
 		temp.wicon = wicon:new{
-			iconr = data.iconr or self.template.iconr,
-			iconpath = data.iconpath,
-			iconscale = data.iconscale or self.template.iconscale,
+			iconr = temp.iconr,
+			iconpath = temp.iconpath,
+			iconscale = temp.iconscale,
 		}
 	end
 	if temp.wicon then

@@ -16,16 +16,6 @@ textpanel.template = {
 	upiconrot = -math.pi/2,
 	downiconpath = "art/arrow.png",
 	downiconrot = math.pi/2,
-	downiconfunc = function(self, x, y, button)
-		if button == "l" then
-			self:scroll(10)
-		end
-	end,
-	upiconfunc = function(self, x, y, button)
-		if button == "l" then
-			self:scroll(-10)
-		end
-	end,
 }
 setmetatable(textpanel.template, panel.template)
 textpanel.template.__index = textpanel.template
@@ -53,8 +43,11 @@ textpanel.new = function(self, data)
 		height = temp.buttonsize,
 		iconr = temp.upiconrot,
 		iconpath = temp.upiconpath,
+		target = tb,
 		mousepressed = function(self, x, y, button)
-			tb:upiconfunc(x, y, button)
+			if button == "l" then
+				self.target:scroll(-10)
+			end
 		end,
 	})
 	print("About to add down button")
@@ -65,8 +58,11 @@ textpanel.new = function(self, data)
 		height = temp.buttonsize,
 		iconr = temp.downiconrot,
 		iconpath = temp.downiconpath,
+		target = tb,
 		mousepressed = function(self, x, y, button)
-			tb:downiconfunc(x, y, button)
+			if button == "l" then
+				self.target:scroll(10)
+			end
 		end,
 	})
 	return temp

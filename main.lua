@@ -16,7 +16,7 @@ local font
 local newtext = "Argh bees everywhere! Run for your lives! Don't open that crate! It's full of bees! Worse than bees, spike-hornets! With bayonets and lasers! But wait, there's more! With the bee 'honey', we can do anything! We can reverse death itself!"
 
 local function addwindowfunc()
-	window:addto(gui, {halign="center", valign="center", minwidth = 256, minheight = 256, width=256, height=256, title="I'm a window!", icon={iconpath="art/upicon.png"},
+	window:addto(gui, {halign="center", valign="center", minwidth = 256, minheight = 256, width=256, height=256, title="I'm a window!", iconpath="art/upicon.png",
 	                   widgets = {frame:new{widgets={textbox:new{text=newtext}}}}
 	                  })
 	return true
@@ -33,7 +33,7 @@ function love.load()
 	button:addto(gui, {mousereleased=function() tb:scroll(5) end, wlabel=label:new{text="Scroll text down"}, posx=64})
 	button:addto(gui, {mousereleased=function() tb:scroll(-5) end, wlabel=label:new{text="Scroll text up"}, posx=128})
 	textedit:addto(gui, {text="ABCDE", valign="center", width=128, height=128, cursorpos=3})
-	textpanel:addto(gui, {text=newtext})
+	textpanel:addto(gui, {text=newtext, halign="center", valign="center"})
 end
 
 function love.update(dt)
