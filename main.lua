@@ -25,7 +25,7 @@ end
 function love.load()
 	font = love.graphics.newFont()
 	love.graphics.setFont(font)
-	love.keyboard.setKeyRepeat(0.1, 0.2)
+	love.keyboard.setKeyRepeat(0.1, 0.1)
 	gui = widgets.newgui()
 	gui.icons = {}
 	icon:setstore(gui.icons)
