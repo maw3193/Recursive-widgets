@@ -33,8 +33,9 @@ window.new = function(self, data)
 		title.text = data.title
 	end
 	data.title = nil
-	if data.icon then
-		table.insert(data.widgets, icon:new(data.icon))
+	if data.iconpath then
+		table.insert(data.widgets, icon:new{iconr=data.iconr, iconscale=data.iconscale,
+		                                    iconcol=data.iconcol, iconpath=data.iconpath})
 	end
 	data.icon = nil
 

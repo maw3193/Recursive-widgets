@@ -3,6 +3,8 @@ Floating windows which ask for a button-clicking prompt
 Floating windows which want you to put some text in
 Buttons can react to hovering and being held
 Some widgets to be capable of expanding/contracting when frames are dragged bigger/smaller
+Make the topmost widget the one that reacts to clicks, not the bottom one.
+Make the last-clicked widget float to the top (?)
 
 TOFIX:
-Icon not appearing for windows
+
