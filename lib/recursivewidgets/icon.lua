@@ -11,6 +11,11 @@ end
 icon.setstore = function(self, store) --sets the current store
 	if store then
 		self.store = store
+		local mt = getmetatable(self.store)
+		if mt == nil then
+			mt = setmetatable(self.store, {})
+		end
+		mt.__mode = "v"
 	end
 end
 
