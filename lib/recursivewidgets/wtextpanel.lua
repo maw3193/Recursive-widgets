@@ -28,15 +28,12 @@ textpanel.new = function(self, data)
 	if not data.text then
 		data.text = ""	
 	end
-	print("About to add a panel")
 	local temp = panel.new(self, data)
-	print("About to add text box")	
 	local tb = textbox:addto(temp, {
 		width = temp.width - temp.buttonsize,
 		height = temp.height,
 		text = temp.text,
 	})
-	print("About to add up button")
 	button:addto(temp, {
 		halign = "right",
 		width = temp.buttonsize,
@@ -50,7 +47,6 @@ textpanel.new = function(self, data)
 			end
 		end,
 	})
-	print("About to add down button")
 	button:addto(temp, {
 		halign = "right",
 		valign = "bottom",
