@@ -4,6 +4,7 @@ Frame is a widget that contains other widgets and can be dragged around
 local widgets = require "lib/recursivewidgets/widgets"
 local colour = require "lib/recursivewidgets/colour"
 local weakref = require "lib/recursivewidgets/weakref"
+local util = require "lib/recursivewidgets/util"
 local frame = setmetatable({}, widgets)
 frame.__index = frame
 
@@ -59,7 +60,7 @@ frame.template = {
 		end
 	end,
 	mousepressed = function(self, x, y, button)
-		for _,v in ipairs (self.widgets) do
+		for _,v in util.ripairs (self.widgets) do
 			if v:testpoint(x, y) then
 				if v:mousepressed(x, y, button) then
 					self.focussed = v

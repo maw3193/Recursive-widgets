@@ -1,6 +1,7 @@
 local colour = require "lib/recursivewidgets/colour"
 local icon = require "lib/recursivewidgets/icon"
 local weakref = require "lib/recursivewidgets/weakref"
+local util = require "lib/recursivewidgets/util"
 local widgets = {}
 
 widgets.guitemplate = {
@@ -33,7 +34,7 @@ widgets.guitemplate = {
 		end
 	end,
 	mousepressed = function(self, x, y, button)
-		for _,v in ipairs (self.widgets) do
+		for _,v in util.ripairs (self.widgets) do
 			if v:testpoint(x, y) then
 				if v:mousepressed(x, y, button) then
 					self.focussed = v
