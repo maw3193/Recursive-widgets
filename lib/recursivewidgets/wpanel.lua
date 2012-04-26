@@ -24,16 +24,19 @@ panel.template = {
 		for k,v in pairs(self.widgets) do
 			v:update(dt)
 		end
+		self:userupdate(dt)
 	end,
 	keypressed = function(self, key, unicode)
 		if self.focussed then
 			self.focussed:keypressed(key, unicode)
 		end
+		self:userkeypressed(key, unicode)
 	end,
 	keyreleased = function(self, key, unicode)
 		if self.focussed then
 			self.focussed:keyreleased(key, unicode)
 		end
+		self:userkeyreleased(key, unicode)
 	end,
 	mousepressed = function(self, x, y, button)
 		for _,v in util.ripairs (self.widgets) do
@@ -44,12 +47,14 @@ panel.template = {
 				end
 			end
 		end
+		self:usermousepressed(x, y, button)
 		return true
 	end,
 	mousereleased = function(self, x, y, button)
 		if self.focussed then
 			self.focussed:mousereleased(x, y, button)
 		end
+		self:usermousereleased(x, y, button)
 		return true
 	end,
 }

@@ -90,9 +90,13 @@ widgets.template = {
 	parent = nil, --REPLACE WITH A WEAK REFERENCE OBJECT THING
 	bordercol = nil,
 	bgcol = nil,
+	stretch = false,
 	update = function(self, dt)
-	
+		self:userupdate(dt)
 	end,
+	userupdate = function(self, dt)
+	end,
+	
 	draw = function(self)
 		local x = self:getScreenX()
 		local y = self:getScreenY()
@@ -106,20 +110,35 @@ widgets.template = {
 			love.graphics.setColor(self.bordercol)
 			love.graphics.rectangle("line", x, y, w, h)
 		end
-
+		self:userdraw()
 	end,
+	userdraw = function(self)
+	end,
+	
 	keypressed = function(self, key, unicode)
-	
+		self:userkeypressed(key, unicode)
 	end,
+	userkeypressed = function(self, key, unicode)
+	end,
+	
 	keyreleased = function(self, key, unicode)
-	
+		self:userkeyreleased(self, key, uncode)
 	end,
+	userkeyreleased = function(self, key, unicode)
+	end,
+	
 	mousepressed = function(self, x, y, button)
-
+		self:usermousepressed(x, y, button)
 	end,
-	mousereleased = function(self, x, y, button)
+	usermousepressed = function(self, x, y, button)
+	end,
 	
+	mousereleased = function(self, x, y, button)
+		self:usermousereleased(x, y, button)
 	end,
+	usermousereleased = function(self, x, y, button)
+	end,
+	
 	getParent = function(self)
 		return self.parent.value
 	end,
@@ -163,7 +182,10 @@ widgets.template = {
 		end
 	end,
 	resize = function(self, dx, dy)
-	
+		if self.stretch then
+			self.width = self.width + dx
+			self.height = self.height + dy
+		end
 	end,
 }
 widgets.template.__index = widgets.template

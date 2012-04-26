@@ -48,16 +48,19 @@ frame.template = {
 			self.posx = newx
 			self.posy = newy
 		end
+		self:userupdate(dt)
 	end,
 	keypressed = function(self, key, unicode)
 		if self.focussed then
 			self.focussed:keypressed(key, unicode)
 		end
+		self:userkeypressed(key, unicode)
 	end,
 	keyreleased = function(self, key, unicode)
 		if self.focussed then
 			self.focussed:keyreleased(key, unicode)
 		end
+		self:userkeyreleased(key, unicode)
 	end,
 	mousepressed = function(self, x, y, button)
 		for _,v in util.ripairs (self.widgets) do
@@ -71,6 +74,7 @@ frame.template = {
 		self.grabbed = true
 		self.grabbedx = self:getLocalX(x)
 		self.grabbedy = self:getLocalY(y)
+		self:usermousepressed(x, y, button)
 		return true
 	end,
 	mousereleased = function(self, x, y, button)
@@ -78,6 +82,7 @@ frame.template = {
 			self.focussed:mousereleased(x, y, button)
 		end
 		self.grabbed = false
+		self:usermousereleased(x, y, button)
 		return true
 	end,
 }

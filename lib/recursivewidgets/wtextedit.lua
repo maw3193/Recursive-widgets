@@ -59,6 +59,7 @@ textedit.template = {
 		if button == "l" then
 			return true
 		end
+		self:usermousepressed(x, y, button)
 	end,
 	keypressed = function(self, key, unicode)
 		if self:isvalidchar(unicode) then
@@ -74,6 +75,7 @@ textedit.template = {
 		elseif key == "right" then
 			self:movecursor(1)
 		end
+		self:userkeypressed(key, unicode)
 	end,
 }
 setmetatable(textedit.template, wtextbox.template)

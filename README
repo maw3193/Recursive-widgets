@@ -8,6 +8,7 @@ Floating windows which want you to put some text in
 Buttons can react to hovering and being held
 Some widgets to be capable of expanding/contracting when frames are dragged bigger/smaller
 Make the last-clicked widget float to the top (?)
+Rewrite window like another widget, instead of being a wonky mess.
 
 TOFIX:
 

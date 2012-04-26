@@ -71,20 +71,20 @@ button.template = {
 			self.wlabel:draw()
 		end
 	end,
-	keypressed = function(self, key)
-		print(key.." down")
+	keypressed = function(self, key, unicode)
+		self:userkeypressed(key, unicode)
 		return true
 	end,
-	keyreleased = function(self, key)
-		print(key.." up")
+	keyreleased = function(self, key, unicode)
+		self:userkeyreleased(key, unicode)
 		return true
 	end,
 	mousepressed = function(self, x, y, button)
-		print("Mouse button "..button.." down")
+		self:usermousepressed(x, y, button)
 		return true
 	end,
 	mousereleased = function(self, x, y, button)
-		print("Mouse button "..button.." up")
+		self:usermouserepeased(x, y, button)
 		return true
 	end,
 }
