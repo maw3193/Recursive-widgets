@@ -10,8 +10,17 @@ widgets.guitemplate = {
 	widgets = nil, --creation function makes its new table
 	focussed = nil, --points to the widget currently in focus
 	resized = function(self)
+		local w = self.width
+		local h = self.height
 		self.width = love.graphics:getWidth()
 		self.height = love.graphics:getHeight()
+		local dx = self.width - w
+		local dy = self.height - h
+		if self.widgets then
+			for k,v in pairs(self.widgets) do
+				v:resize(dx, dy)
+			end
+		end
 	end,
 	update = function(self, dt)
 		for k,v in pairs(self.widgets) do
@@ -182,9 +191,22 @@ widgets.template = {
 		end
 	end,
 	resize = function(self, dx, dy)
-		if self.stretch then
-			self.width = self.width + dx
-			self.height = self.height + dy
+		if self.stretch and dx ~= 0 and dy ~= 0 then
+			if self.width + dx > self.minwidth then
+				self.width = self.width + dx
+			else
+				self.width = self.minwidth
+			end
+			if self.height + dx > self.minheight then
+				self.height = self.height + dy
+			else
+				self.height = self.minheight
+			end
+			if self.widgets then
+				for k,v in pairs(self.widgets) do
+					v:resize(dx, dy)
+				end
+			end
 		end
 	end,
 }

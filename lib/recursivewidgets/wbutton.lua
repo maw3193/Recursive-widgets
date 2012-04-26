@@ -44,15 +44,22 @@ button.resizeupdate = function(self, dt)
 	if self.grabbed then
 		local dx = love.mouse.getX() - self.grabbedx
 		local dy = love.mouse.getY() - self.grabbedy
-		local newwidth = self.grabbedw + dx
-		local newheight = self.grabbedh + dy
+		--local newwidth = self.grabbedw + dx
+		--local newheight = self.grabbedh + dy
 		local par = self:getParent()
+		if par.stretch then
+			par:resize(dx, dy)
+		end
+		self.grabbedx = self.grabbedx + dx
+		self.grabbedy = self.grabbedy + dy
+		--[[
 		if newwidth >= par.minwidth then
 			par.width = newwidth
 		end
 		if newheight >= par.minheight then
 			par.height = newheight
 		end
+		--]]
 	end
 end
 
