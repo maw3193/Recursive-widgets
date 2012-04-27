@@ -17,7 +17,7 @@ local newtext = "Argh bees everywhere! Run for your lives! Don't open that crate
 
 local function addwindowfunc()
 	window:addto(gui, {halign="center", valign="center", minwidth = 256, minheight = 256, width=256, height=256, title="I'm a window!", iconpath="art/upicon.png", stretch = true,
-	                   widgets = {frame:new{widgets={textbox:new{text=newtext}}, stretch = true}}
+	                   widgets = {textbox:new{text=newtext, posy=16, stretch=true, width=256, height=240, minwidth=256, minheight=240}}
 	                  })
 	return true
 end

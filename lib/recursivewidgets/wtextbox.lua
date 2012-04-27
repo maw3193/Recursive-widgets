@@ -54,6 +54,10 @@ textbox.template = {
 		self.scrollpos = 0
 		self:redrawcanvas()
 	end,
+	resize = function(self, dx, dy)
+		widget.template.resize(self, dx, dy)
+		self:makecanvas()
+	end,
 }
 textbox.template.__index = textbox.template
 setmetatable(textbox.template, widget.template)
