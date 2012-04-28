@@ -40,7 +40,6 @@ textbox.template = {
 	end,
 	scroll = function(self, amount)
 		local newtarget = self.scrollpos + amount
-		print("currently "..self.scrollpos..", scrolling to "..newtarget..", with limit "..self.maxscroll)
 		if newtarget < 0 then
 			self.scrollpos = 0
 		elseif newtarget > self.maxscroll then

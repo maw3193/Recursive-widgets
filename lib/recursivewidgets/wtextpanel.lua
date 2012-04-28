@@ -11,7 +11,7 @@ textpanel.__index = textpanel
 
 textpanel.template = {
 	text = nil,
-	buttonsize = 32,
+	buttonsize = 16,
 	upiconpath = "art/arrow.png",
 	upiconrot = -math.pi/2,
 	downiconpath = "art/arrow.png",
