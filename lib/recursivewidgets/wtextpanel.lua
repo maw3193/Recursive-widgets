@@ -33,6 +33,7 @@ textpanel.new = function(self, data)
 		width = temp.width - temp.buttonsize,
 		height = temp.height,
 		text = temp.text,
+		stretch = true,
 	})
 	button:addto(temp, {
 		halign = "right",

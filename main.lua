@@ -16,12 +16,9 @@ local font
 local newtext = "Argh bees everywhere! Run for your lives! Don't open that crate! It's full of bees! Worse than bees, spike-hornets! With bayonets and lasers! But wait, there's more! With the bee 'honey', we can do anything! We can reverse death itself!"
 
 local function addwindowfunc()
---[[	window:addto(gui, {halign="center", valign="center", minwidth = 256, minheight = 256, width=256, height=256, title="I'm a window!", titleiconpath="art/upicon.png", stretch = true, closeiconpath="art/cross.png", stretchiconpath="art/arrow.png",
-	                   widgets = {textbox:new{text=newtext, posy=16, stretch=true, width=256, height=240, minwidth=256, minheight=240}}
-	                  })--]]
 	window:addto(gui, {halign="center", valign="center", windowiconpath="art/upicon.png", stretch=true, width=256, minwidth=256, minheight=256, height=256, widgets={
-	                  	textbox:new{text=newtext, posy=16, stretch=true, width=256, height=240, minwidth=256,
-	                  	            minheight=240},
+	                  	textpanel:new{text=newtext, posy=16, stretch=true, width=240, height=240, minwidth=240,
+	                  	            minheight=240, bgcol=colour.black},
 	                  }
 	})
 	return true
@@ -35,9 +32,6 @@ function love.load()
 	gui.icons = {}
 	icon:setstore(gui.icons)
 	button:addto(gui, {mousereleased = addwindowfunc, wlabel=label:new{text="Make a new window"}})
-	local tb = textbox:addto(gui, {text=newtext, halign="center", width=128, height=128})
-	button:addto(gui, {mousereleased=function() tb:scroll(5) end, wlabel=label:new{text="Scroll text down"}, posx=64})
-	button:addto(gui, {mousereleased=function() tb:scroll(-5) end, wlabel=label:new{text="Scroll text up"}, posx=128})
 	textedit:addto(gui, {text="ABCDE", valign="center", width=128, height=128, cursorpos=3})
 	textpanel:addto(gui, {text=newtext, halign="center", valign="center"})
 end
