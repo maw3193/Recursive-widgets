@@ -1,9 +1,5 @@
 --[[
 A frame that comes with a bunch of widgets by default.
-It receives all the same data as frame, but also:
-style = {close = {data}, stretch = {data}}
-icon = {data},
-title = "string"
 --]]
 local widgets = require "lib/recursivewidgets/widgets"
 local frame = require "lib/recursivewidgets/wframe"
@@ -12,56 +8,58 @@ local icon = require "lib/recursivewidgets/wicon"
 local panel = require "lib/recursivewidgets/wpanel"
 local button = require "lib/recursivewidgets/wbutton"
 local windowstyle = require "lib/recursivewidgets/windowstyle"
+local colour = require "lib/recursivewidgets/colour"
 
 local window = setmetatable({}, frame)
 window.__index = window
 
-local titledefaults = {
-	text = "Default title text",
-	textalign = "center",
-	halign = "center",
-	valign = "top",
+window.template = {
+	titletext = "Default title text",
+	titletextalign = "center", 
+	titlehalign = "center",
+	titlevalign = "top",
+	
+	closeiconpath = "art/cross.png",
+	closeiconr = 0,
+	closeiconscale = 1,
+	closeiconcol = colour.red,
+	
+	stretchiconpath = "art/arrow.png",
+	stretchiconr = math.pi/4,
+	stretchiconscale = 1,
+	stretchiconcol = colour.white,
+	
+	windowiconpath = nil,
+	windowiconr = 0,
+	windowiconscale = 1,
+	windowiconcol = colour.white,
+	
 }
+window.template.__index = window.template
+setmetatable(window.template, frame.template)
 
 window.new = function(self, data)
-	if not data.widgets then
-		data.widgets = {}
+	if not data then
+		data = {}
 	end
-	local title = label:new(titledefaults)
-	table.insert(data.widgets, title)
-	if data.title then
-		title.text = data.title
-	end
-	data.title = nil
-	if data.iconpath then
-		table.insert(data.widgets, icon:new{iconr=data.iconr, iconscale=data.iconscale,
-		                                    iconcol=data.iconcol, iconpath=data.iconpath})
-	end
-	data.icon = nil
-
-	local style
-	if data.style then
-		style = data.style
-	else
-		style = windowstyle
-	end
-	local closebutton = button:new{mousereleased = button.closeparent, halign = "right", wicon=icon:new(style.close)}
+	local temp = frame.new(self, data)
+	local closebutton = button:addto(temp, {mousereleased=button.closeparent, halign="right", iconpath=temp.closeiconpath,
+	                                        iconr=temp.closeiconr, iconscale=temp.closeiconscale,
+	                                        iconcol=temp.closeiconcol})
 	closebutton.width = closebutton.wicon.width
 	closebutton.height = closebutton.wicon.height
-	table.insert(data.widgets, closebutton)
-
-	local stretchbutton = button:new{mousepressed = button.resizegrab, mousereleased = button.resizerelease, update = button.resizeupdate,
-	                                 halign = "right", valign = "bottom", wicon = icon:new(style.stretch)}
+	local stretchbutton = button:addto(temp, {mousereleased=button.resizerelease, mousepressed=button.resizegrab,
+	                                          update=button.resizeupdate, halign="right",
+	                                          valign="bottom", iconpath=temp.stretchiconpath, iconr=temp.stretchiconr, 
+	                                          iconscale=temp.stretchiconscale, iconcol=temp.stretchiconcol})
 	stretchbutton.width = stretchbutton.wicon.width
 	stretchbutton.height = stretchbutton.wicon.height
-	table.insert(data.widgets, stretchbutton)
-	
-	if data.style then
-		data.style = nil
+	label:addto(temp, {text=temp.titletext, textalign=temp.titletextalign, halign=temp.titlehalign, valign=temp.titlevalign,
+	                   width=temp.width-32})
+	if temp.windowiconpath then
+		icon:addto(temp, {iconpath = temp.windowiconpath, iconr=temp.windowiconr, iconscale=temp.windowiconscale,
+		                  iconcol=temp.windowiconcol})
 	end
-	
-	local temp = frame:new(data)
-	title.width = temp.width - 32
 	return temp
 end
 

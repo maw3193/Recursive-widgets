@@ -28,6 +28,7 @@ button.closeparent = function(self, x, y, button)
 end
 
 button.resizegrab = function(self, x, y, button)
+	print("calling resizegrab")
 	self.grabbed = true
 	self.grabbedx = x
 	self.grabbedy = y
@@ -36,6 +37,7 @@ button.resizegrab = function(self, x, y, button)
 	return true
 end
 button.resizerelease = function(self, x, y, button)
+	print("calling resizerelease")
 	self.grabbed = false
 	return true
 end
@@ -105,6 +107,7 @@ button.new = function(self, data)
 			iconr = temp.iconr,
 			iconpath = temp.iconpath,
 			iconscale = temp.iconscale,
+			iconcol = temp.iconcol
 		}
 	end
 	if temp.wicon then

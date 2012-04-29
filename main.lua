@@ -16,9 +16,14 @@ local font
 local newtext = "Argh bees everywhere! Run for your lives! Don't open that crate! It's full of bees! Worse than bees, spike-hornets! With bayonets and lasers! But wait, there's more! With the bee 'honey', we can do anything! We can reverse death itself!"
 
 local function addwindowfunc()
-	window:addto(gui, {halign="center", valign="center", minwidth = 256, minheight = 256, width=256, height=256, title="I'm a window!", iconpath="art/upicon.png", stretch = true,
+--[[	window:addto(gui, {halign="center", valign="center", minwidth = 256, minheight = 256, width=256, height=256, title="I'm a window!", titleiconpath="art/upicon.png", stretch = true, closeiconpath="art/cross.png", stretchiconpath="art/arrow.png",
 	                   widgets = {textbox:new{text=newtext, posy=16, stretch=true, width=256, height=240, minwidth=256, minheight=240}}
-	                  })
+	                  })--]]
+	window:addto(gui, {halign="center", valign="center", windowiconpath="art/upicon.png", stretch=true, width=256, minwidth=256, minheight=256, height=256, widgets={
+	                  	textbox:new{text=newtext, posy=16, stretch=true, width=256, height=240, minwidth=256,
+	                  	            minheight=240},
+	                  }
+	})
 	return true
 end
 
