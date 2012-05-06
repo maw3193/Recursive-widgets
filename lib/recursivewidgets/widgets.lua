@@ -244,8 +244,7 @@ widgets.template = {
 				self.height = newh
 			end
 
-			if self.widgets 
-			then
+			if self.widgets then
 				for k,v in pairs(self.widgets) do
 					v:resize(passdx, passdy)
 				end
