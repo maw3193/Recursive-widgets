@@ -38,34 +38,40 @@ button.resizegrab = function(self, x, y, button)
 end
 button.resizerelease = function(self, x, y, button)
 	print("calling resizerelease")
+	--[[
+	local dx = x - self.grabbedx
+	local dy = y - self.grabbedy
+	local par = self:getParent()
+	if par.stretch then
+		dx, dy = par:checkresizewidth(dx, dy)
+		par:resize(dx, dy)
+	end
+	--]]	
 	self.grabbed = false
 	return true
 end
 
 button.resizeupdate = function(self, dt)
 	if self.grabbed then
+		
 		local dx = love.mouse.getX() - self.grabbedx
 		local dy = love.mouse.getY() - self.grabbedy
 		--local newwidth = self.grabbedw + dx
 		--local newheight = self.grabbedh + dy
 		local par = self:getParent()
 		if par.stretch then
+			dx, dy = par:checkresizewidth(dx, dy)
 			par:resize(dx, dy)
 		end
+		
 		self.grabbedx = self.grabbedx + dx
 		self.grabbedy = self.grabbedy + dy
-		--[[
-		if newwidth >= par.minwidth then
-			par.width = newwidth
-		end
-		if newheight >= par.minheight then
-			par.height = newheight
-		end
-		--]]
+		
 	end
 end
 
 button.template = {
+	is_a = "button",
 	iconr = 0,
 	iconpath = nil,
 	iconscale = 1,

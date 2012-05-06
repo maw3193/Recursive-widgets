@@ -7,6 +7,7 @@ local wtextbox = require "lib/recursivewidgets/wtextbox"
 local textedit = setmetatable({}, wtextbox)
 
 textedit.template = {
+	is_a = "editable textbox",
 	cursorpos = 1,
 	cursor = "|",
 	redrawcanvas = function(self)

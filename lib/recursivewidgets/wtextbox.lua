@@ -7,6 +7,7 @@ local colour = require "lib/recursivewidgets/colour"
 local textbox = setmetatable({}, widget)
 textbox.__index = textbox
 textbox.template = {
+	is_a = "textbox",
 	canvas = nil,
 	text = nil,
 	align = "left",
@@ -54,8 +55,10 @@ textbox.template = {
 		self:redrawcanvas()
 	end,
 	resize = function(self, dx, dy)
-		widget.template.resize(self, dx, dy)
-		self:makecanvas()
+		if dx ~= 0 and dy ~= 0 then
+			widget.template.resize(self, dx, dy)
+			self:makecanvas()
+		end
 	end,
 }
 textbox.template.__index = textbox.template

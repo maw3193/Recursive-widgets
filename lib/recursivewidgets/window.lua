@@ -14,6 +14,8 @@ local window = setmetatable({}, frame)
 window.__index = window
 
 window.template = {
+	is_a = "window",
+	
 	titletext = "Default title text",
 	titletextalign = "center", 
 	titlehalign = "center",

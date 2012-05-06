@@ -5,6 +5,7 @@ local widgets = require "lib/recursivewidgets/widgets"
 local label = setmetatable({}, widgets)
 
 label.template = {
+	is_a = "label",
 	text = "",
 	textalign = "left",
 	draw = function(self)

@@ -9,6 +9,7 @@ local frame = setmetatable({}, widgets)
 frame.__index = frame
 
 frame.template = {
+	is_a = "frame",
 	width = 128,
 	height = 128,
 	minwidth = 128,

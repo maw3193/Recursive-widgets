@@ -10,6 +10,7 @@ local textpanel = setmetatable({}, panel)
 textpanel.__index = textpanel
 
 textpanel.template = {
+	is_a = "text panel",
 	text = nil,
 	buttonsize = 16,
 	upiconpath = "art/arrow.png",
@@ -31,11 +32,14 @@ textpanel.new = function(self, data)
 	local temp = panel.new(self, data)
 	local tb = textbox:addto(temp, {
 		width = temp.width - temp.buttonsize,
+		minwidth = temp.minwidth - temp.buttonsize,
 		height = temp.height,
+		minheight = temp.minheight,
 		text = temp.text,
 		stretch = true,
 	})
 	button:addto(temp, {
+		is_a = "scroll up button",
 		halign = "right",
 		width = temp.buttonsize,
 		height = temp.buttonsize,
@@ -49,6 +53,7 @@ textpanel.new = function(self, data)
 		end,
 	})
 	button:addto(temp, {
+		is_a = "scroll down button",
 		halign = "right",
 		valign = "bottom",
 		width = temp.buttonsize,

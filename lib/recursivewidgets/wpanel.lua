@@ -8,6 +8,7 @@ local util = require "lib/recursivewidgets/util"
 local panel = setmetatable({}, widgets)
 panel.__index = panel
 panel.template = {
+	is_a = "panel",
 	width = 128,
 	height = 128,
 	widgets = nil,

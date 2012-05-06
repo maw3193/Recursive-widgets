@@ -7,6 +7,7 @@ local colour = require "lib/recursivewidgets/colour"
 local wicon = setmetatable({}, widgets)
 
 wicon.template = {
+	is_a = "icon widget",
 	iconr = 0,
 	iconscale = 1,
 	icon = nil,

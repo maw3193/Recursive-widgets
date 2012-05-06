@@ -5,6 +5,7 @@ local util = require "lib/recursivewidgets/util"
 local widgets = {}
 
 widgets.guitemplate = {
+	is_a = "gui",
 	width = 0,
 	height = 0,
 	widgets = nil, --creation function makes its new table
@@ -90,6 +91,7 @@ end
 
 
 widgets.template = {
+	is_a = "widget",
 	posx = 0,
 	posy = 0,
 	halign = "left",
@@ -192,21 +194,62 @@ widgets.template = {
 			return false
 		end
 	end,
-	resize = function(self, dx, dy)
-		if self.stretch and dx ~= 0 and dy ~= 0 then
-			if self.width + dx > self.minwidth then
-				self.width = self.width + dx
-			else
-				self.width = self.minwidth
+	checkresizewidth = function(self, dx, dy)
+		if self.stretch and (dx ~= 0 or dy ~= 0) then
+			local newwidth = self.width + dx
+			local newdx = dx
+			--[[
+			print(self.is_a..": dx="..dx..", dy="..dy..", width="..self.width..
+			       ", height="..self.height..", minwidth="..
+			       self.minwidth..", minheight="..self.minheight)
+			--]]
+			if newwidth < self.minwidth then
+				newdx = self.minwidth - self.width
+				--print("shrinking resize width from "..dx.." to "..newdx)
 			end
-			if self.height + dx > self.minheight then
-				self.height = self.height + dy
-			else
-				self.height = self.minheight
+			local newheight = self.height + dy
+			local newdy = dy
+			if newheight < self.minheight then
+				newdy = self.minheight - self.height
+				--print("shrinking resize height from "..dy.." to "..newdy)
 			end
 			if self.widgets then
 				for k,v in pairs(self.widgets) do
-					v:resize(dx, dy)
+					newdx, newdy = v:checkresizewidth(newdx, newdy)
+				end
+			end
+			dx = newdx
+			dy = newdy
+		end
+		return dx, dy
+		--TODO: Use  this function somewhere!
+	end,
+	resize = function(self, dx, dy)
+		if self.stretch and dx ~= 0 and dy ~= 0 then
+			local neww = self.width + dx
+			local newh = self.height + dy
+			local passdx
+			local passdy
+			if neww < self.minwidth then
+				self.width = self.minwidth
+				passdx = 0
+			else
+				passdx = dx
+				self.width = neww
+			end
+			if newh < self.minheight then
+				self.height = self.minheight
+				passdy = 0
+			else
+				passdy = dy
+				self.height = newh
+			end
+
+			if self.widgets 
+			--and passthrough 
+			then
+				for k,v in pairs(self.widgets) do
+					v:resize(passdx, passdy)
 				end
 			end
 		end

@@ -13,12 +13,12 @@ local textpanel = require "lib/recursivewidgets/wtextpanel"
 
 local gui
 local font
-local newtext = "Argh bees everywhere! Run for your lives! Don't open that crate! It's full of bees! Worse than bees, spike-hornets! With bayonets and lasers! But wait, there's more! With the bee 'honey', we can do anything! We can reverse death itself!"
+local newtext = "One bee, two bees, three bees, four bees, five bees, six bees, seven bees, eight bees, nine bees, ten bees, eleven bees, twelve bees, thirteen bees, fourteen bees, fifteen bees, sixteen bees, seventeen bees, eighteen bees, nineteen bees, twenty bees, twenty one bees, twenty two bees, twenty three bees, twenty four bees, twenty five bees!"
 
 local function addwindowfunc()
-	window:addto(gui, {halign="center", valign="center", windowiconpath="art/upicon.png", stretch=true, width=256, minwidth=256, minheight=256, height=256, widgets={
-	                  	textpanel:new{text=newtext, posy=16, stretch=true, width=240, height=240, minwidth=240,
-	                  	            minheight=240, bgcol=colour.black},
+	window:addto(gui, {halign="center", valign="center", windowiconpath="art/upicon.png", stretch=true, width=64, minwidth=64, minheight=64, height=64, widgets={
+	                  	textpanel:new{text=newtext, posy=16, stretch=true, width=48, height=48, minwidth=48,
+	                  	            minheight=48, bgcol=colour.black},
 	                  }
 	})
 	return true
