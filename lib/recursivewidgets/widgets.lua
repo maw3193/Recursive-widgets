@@ -222,7 +222,6 @@ widgets.template = {
 			dy = newdy
 		end
 		return dx, dy
-		--TODO: Use  this function somewhere!
 	end,
 	resize = function(self, dx, dy)
 		if self.stretch and dx ~= 0 and dy ~= 0 then
@@ -246,7 +245,6 @@ widgets.template = {
 			end
 
 			if self.widgets 
-			--and passthrough 
 			then
 				for k,v in pairs(self.widgets) do
 					v:resize(passdx, passdy)
